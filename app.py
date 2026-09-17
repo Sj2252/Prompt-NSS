@@ -249,15 +249,6 @@ html, body {
     white-space: nowrap;
 }
 
-.header-subtitle {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--text-muted);
-    margin: 0;
-    line-height: 1.5;
-}
-
 /* Two-column layout on desktop, stacking under 768px */
 .main-grid {
     display: flex !important;
@@ -524,15 +515,9 @@ input[type="range"]::-moz-range-progress {
     border: 1px solid var(--border-strong);
     padding: 8px 12px;
     border-radius: 4px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
     font-size: 0.82rem;
     font-weight: 500;
-}
-
-.logic-meta {
-    font-size: 0.725rem;
-    color: var(--text-faint);
-    line-height: 1.4;
 }
 
 /* Completely remove Gradio watermark, footer links, and settings */
@@ -582,7 +567,6 @@ with gr.Blocks(title="Image Comparison & Scoring Tool") as demo:
                 <h1 class="header-title">Image Comparison &amp; Scoring</h1>
                 <span class="editorial-tag">CLIP ViT-B/32</span>
             </div>
-            <p class="header-subtitle">Evaluate player-generated images against target reference images with token efficiency penalty</p>
         </div>
     </header>
     """)
@@ -618,16 +602,14 @@ with gr.Blocks(title="Image Comparison & Scoring Tool") as demo:
                 value=15,
                 precision=0,
                 minimum=0,
-                step=1,
-                info="Number of tokens in player prompt"
+                step=1
             )
             lambda_input = gr.Slider(
                 label="Penalty Weight (λ)",
                 minimum=0.0,
                 maximum=1.0,
                 value=0.3,
-                step=0.05,
-                info="Deduction per token (Default: 0.3)"
+                step=0.05
             )
 
             with gr.Row():
@@ -675,9 +657,6 @@ with gr.Blocks(title="Image Comparison & Scoring Tool") as demo:
             <div class="logic-box">
                 <div class="logic-title">Scoring Definition</div>
                 <div class="logic-expression">Final Score = Visual Similarity (%) − (λ × Tokens)</div>
-                <div class="logic-meta">
-                    OpenAI CLIP ViT-B/32 computes cosine similarity between normalized visual embeddings. Token penalty applies linear deduction based on prompt token count.
-                </div>
             </div>
             """)
 
